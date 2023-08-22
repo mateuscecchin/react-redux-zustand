@@ -1,17 +1,19 @@
 import ReactPlayer from "react-player";
-import { useAppDispatch, useAppSelector } from "../store";
 import { useEffect } from "react";
-import { ReactReduxContext, useDispatch } from "react-redux";
-import { next, useCurrentLeason } from "../store/slices/player";
 import { Loader } from "lucide-react";
+import { useCurrentLeason, useStore } from "../store";
 
 export function Video() {
-  const dispatch = useAppDispatch();
   const { currentLeason } = useCurrentLeason();
-  const isCourseLoading = useAppSelector((state) => state.player.isLoading);
+  const { isLoading, next } = useStore((store) => {
+    return {
+      isLoading: store.isLoading,
+      next: store.next,
+    };
+  });
 
   function handlePlayNext() {
-    dispatch(next());
+    next();
   }
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export function Video() {
   return (
     <div className="flex-1">
       <div className="w-full bg-zinc-950 aspect-video">
-        {isCourseLoading ? (
+        {isLoading ? (
           <div className="flex h-full items-center justify-center">
             <Loader className="w-6 h-6 text-zinc-400 animate-spin" />
           </div>
