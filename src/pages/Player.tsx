@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useCurrentLeason, useStore } from "../store";
 
 export function Player() {
-  const { course, load } = useStore((store) => {
+  const { course } = useStore((store) => {
     return {
       course: store.course,
       load: store.load,
@@ -14,9 +14,9 @@ export function Player() {
   });
   const { currentLeason } = useCurrentLeason();
 
-  useEffect(() => {
-    load();
-  }, []);
+  // useEffect(() => {
+  //   load();
+  // }, []);
 
   useEffect(() => {
     if (currentLeason) {
